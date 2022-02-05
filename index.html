@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<style>
+			* {
+				/* box-sizing: content-box; */
+				box-sizing: border-box;
+			}
+
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+				overflow-x: hidden;
+				color: white;
+				background-color: black;
+			}
+
+			#form {
+				position: fixed;
+				right: 0;
+				top: 50px;
+				background-color: black;
+				border-bottom-left-radius: 1rem;
+				transition: all .1s ease;
+				width: max-content;
+			}
+
+			#form.active {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+
+			#form:not(.active) {
+				display: initial;
+				right: -500px;
+				top: -500px;
+				transition: all .3s ease;
+			}
+
+			#form #tools {
+				position: fixed;
+				right: 0;
+				top: 0;
+				background-color: white;
+				color: black;
+				width: 2rem;
+				height: 2rem;
+				line-height: 2rem;
+				border-bottom-left-radius: 1rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+
+			}
+
+			#form #tools:after {
+				position: absolute;
+				content: '🥪';
+			}
+
+			#form>div {
+				color: white;
+				overflow: hidden;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+			}
+
+			#form.active #tools:after {
+				position: absolute;
+				content: '🍔';
+			}
+
+			#palette {
+				width: fit-content;
+				display: flex;
+				flex-direction: row;
+				flex-flow: row wrap;
+				align-items: stretch;
+				justify-content: left;
+				/* padding: 1rem; */
+				/* max-width: 100vw; */
+				border-radius: 1rem;
+				overflow: hidden;
+
+			}
+
+			#palette>div {
+				color: white;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			#palette>div:hover {
+				transform: scale(2);
+				border: 1px solid black;
+				box-shadow: 0 0 15px black;
+			}
+
+			/* #palette>div:first-child {
+				border-top-left-radius: 1rem;
+			} */
+
+			#palette>div:last-child {
+				border-bottom-right-radius: 1rem;
+			}
+
+
+			/** FF*/
+			input[type="range"] {
+				border-radius: .5rem;
+				background-color: #464646;
+				border: 1px solid rgb(160, 160, 160);
+				overflow: hidden;
+			}
+
+			input[type="range"]::-moz-range-progress {
+				height: 100%;
+				background-color: #ffffff;
+				border-top-left-radius: .5rem;
+				border-bottom-left-radius: .5rem;
+			}
+
+			input[type="range"]::-moz-range-track {
+				background-color: #575757;
+			}
+
+			#bgr[type="range"]::-moz-range-progress,
+			#bgr[type="range"]::-moz-range-track {
+				background-color: #ff0000;
+			}
+
+			#bgg[type="range"]::-moz-range-progress,
+			#bgg[type="range"]::-moz-range-track {
+				background-color: #00ff00;
+			}
+
+			#bgb[type="range"]::-moz-range-progress,
+			#bgb[type="range"]::-moz-range-track {
+				background-color: #0000ff;
+			}
+
+			#bga[type="range"] {
+				/* background-color: #000000; */
+			}
+
+			#bga[type="range"]::-moz-range-progress {
+				background-color: #ffffff;
+			}
+
+			#bga[type="range"]::-moz-range-track {
+				background-color: #ffffff;
+			}
+
+
+
+			/* IE*/
+			/* input[type="range"]::-ms-fill-lower {
+				background-color: #014605;
+			}
+
+			input[type="range"]::-ms-fill-upper {
+				background-color: #0004e0;
+			} */
+
+			/*Chrome*/
+			/* input[type='range'] {
+				overflow: hidden;
+				background-color: black;
+				color: white;
+			}
+
+			input[type='range']::-webkit-slider-runnable-track {
+				color: #ff0000;
+				background-color: none;
+				margin-top: -1px;
+			}
+
+			input[type='range']::-webkit-slider-thumb {
+				cursor: ew-resize;
+				background: #51ff00;
+				box-shadow: none;
+			} */
+		</style>
+	</head>
+
+	<body>
+		<div id="form">
+			<div class="bg">How many colors</div>
+			<div class="input">
+				<label for="nbcolors">Nb Colors:</label>
+				<input type="number" min="0" name="nbcolors" id="nbcolors" value=3>
+				<!-- <label for="limited"> limited : </label><input type="checkbox" name="limited" id="limited" checked> -->
+			</div>
+			<div class="range">
+				<label for="h">Starting hue color </label>
+				<div id="vh">..</div>
+				<input type="range" id="h" name="h" min="0" max="360" value="0" step="1">
+			</div>
+			<div class="range">
+				<label for="s">saturation</label>
+				<div id="vs">..</div>
+				<input type="range" id="s" name="s" min="0" max="100" value="100" step="1">
+			</div>
+			<div class="range">
+				<label for="l">light</label>
+				<div id="vl">..</div>
+				<input type="range" id="l" name="l" min="0" max="100" value="50" step="1">
+			</div>
+			<div class="range">
+				<label for="a">transparency </label>
+				<div id="va">..</div>
+				<input type="range" id="a" name="a" min="0" max="100" value="90" step="10">
+			</div>
+			<div class="bg">Background</div>
+			<div class="bg-item range">
+				<label for="bgr">Bg R : </label>
+				<div id="vbgr">..</div>
+				<input type="range" id="bgr" name="bgr" min="0" max="255" value="0" step="1">
+			</div>
+			<div class="bg-item range">
+				<label for="bgg">Bg G : </label>
+				<div id="vbgg">..</div>
+				<input type="range" id="bgg" name="bgg" min="0" max="255" value="0" step="1">
+			</div>
+			<div class="bg-item range">
+				<label for="bgb">Bg B : </label>
+				<div id="vbgb">..</div>
+				<input type="range" id="bgb" name="bgb" min="0" max="255" value="0" step="1">
+			</div>
+			<div class="bg-item range">
+				<label for="bga">Bg A : </label>
+				<div id="vbga">..</div>
+				<input type="range" id="bga" name="bga" min="0" max="255" value="1" step="1">
+			</div>
+			<div id="tools"></div>
+		</div>
+		<script>
+			class Colors {
+				constructor() {
+					this.arrondis = 1000
+					this.nbcolors = 3
+					this.maxHue = 360
+					this.limited = true
+					this.portionsize = this.maxHue / this.nbcolors
+					this.bgR = 0 // max 255
+					this.bgG = 0 // max 255
+					this.bgB = 0 // max 255
+					this.bgA = 1 // transp
+					this.startH = 0
+					this.startS = 100
+					this.startL = 50
+					this.startA = 1
+					this.toolsactive = true
+					this.reverseOrder = true
+					//--
+					this.colorSizeW = '50'
+					this.colorSizeH = '50'
+					// --
+					this.screen_size = this.refresh_screen_size()
+					//--
+					this.set_portionSize()
+					this.refreshPalette()
+					this.addFormEvent()
+					this.checkToolsOpen()
+				}
+
+				checkToolsOpen() {
+					if (this.toolsactive) {
+						document.getElementById('form').classList.add("active")
+						let paletteWidth = parseInt((window.innerWidth - document.getElementById('form').offsetWidth) / this.colorSizeW) * this.colorSizeW
+						document.getElementById('palette').style.maxWidth = paletteWidth + 'px'
+					} else {
+						document.getElementById('form').classList.remove("active")
+						document.getElementById('palette').style.maxWidth = ''
+					}
+				}
+				set_portionSize() {
+					this.portionsize = ((this.maxHue) / this.nbcolors)
+				}
+				addColorToPalette(index, h, s, l, a, width, height) {
+					let string = 'hsla(' + h + ', ' + s + '%, ' + l + '%, ' + a + ')'
+					let div = document.createElement('div')
+					div.style.backgroundColor = string
+					div.textContent = index// + '-' + string
+					div.style.width = width + 'px'
+					div.style.height = height + 'px'
+
+					this.reverseOrder ? document.getElementById('palette').prepend(div)
+						: document.getElementById('palette').appendChild(div)
+				}
+				set_allDiv() {
+					for (let index = 0; index < this.nbcolors; index++) {
+						this.addColorToPalette(
+							index,
+							this.getNewH(index),
+							this.startS,
+							this.startL,
+							this.startA,
+							this.colorSizeW,
+							this.colorSizeH)
+					}
+				}
+				getNewH(index) {
+					let h = (((this.startH + (index * this.portionsize)) * this.arrondis) / this.arrondis)
+					if (h > 360) { h = h - 360 }
+					return h
+				}
+				refreshPalette() {
+					let palette = document.getElementById('palette')
+					this.set_portionSize()
+					if (!palette) { this.addPalette() } else {
+						palette.remove()
+						this.addPalette()
+						this.checkToolsOpen()
+					}
+					this.set_allDiv()
+				}
+				addPalette() {
+					let palette = document.createElement('div')
+					palette.id = 'palette'
+					palette.style.backgroundColor = 'rgba(' + this.bgR + ',' + this.bgG + ',' + this.bgB + ',' + this.bgA + ')'
+					this.reverseOrder ? document.body.prepend(palette)
+						: document.body.appendChild(palette)
+				}
+
+				/*
+				set_formDatas() {
+					return {
+						tag: 'div',id: 'form',
+						content: [
+							{
+								tag: 'div', class: 'input',
+								content: [
+									{ tag: 'label', for: 'nbcolors', textecontent: 'How many colors you want ?' },
+									{
+										tag: 'input', id: 'nbcolors', name: 'nbcolors', type: 'number',
+										min: 0, value: 3
+									}
+								]
+							},
+							{
+								tag: 'div', class: 'range',
+								content: [
+									{ tag: 'label', for: 'h', textecontent: 'Starting hue color ?' },
+									{ tag: 'div', for: 'vh', textecontent: '' },
+									{
+										tag: 'range',
+										id: 'h', name: 'h',
+										min: 0, max: 360, value: 0
+									}
+								]
+							}
+						]
+					}
+				}
+				*/
+				addSpirale() {
+					console.log('coming next !!! Spirale menu !!!')
+				}
+				refresh_screen_size() {
+					console.log('refresh_screen_size')
+					return {
+						w: window.innerWidth,
+						h: window.innerHeight,
+						centerW: window.innerWidth / 2,
+						centerH: window.innerHeight / 2,
+					}
+				}
+				addFormEvent() {
+					document.getElementById('nbcolors').addEventListener('change', (e) => {
+						this.nbcolors = e.target.value
+						this.refreshPalette()
+					}, false)
+					document.getElementById('bgr').onchange = (e) => {
+						this.bgR = e.target.value > 255 ? 255 : e.target.value < 0 ? 0 : e.target.value
+						document.getElementById('vbgr').textContent = '(' + e.target.value + ')'
+						this.refreshPalette()
+					}
+					document.getElementById('bgg').onchange = (e) => {
+						this.bgG = e.target.value > 255 ? 255 : e.target.value < 0 ? 0 : e.target.value
+						document.getElementById('vbgg').textContent = '(' + e.target.value + ')'
+						this.refreshPalette()
+					}
+					document.getElementById('bgb').onchange = (e) => {
+						this.bgB = e.target.value > 255 ? 255 : e.target.value < 0 ? 0 : e.target.value
+						document.getElementById('vbgb').textContent = '(' + e.target.value + ')'
+						this.refreshPalette()
+					}
+					document.getElementById('bga').onchange = (e) => {
+						this.bgA = e.target.value > 255 ? 255 : e.target.value < 0 ? 0 : e.target.value
+						document.getElementById('vbga').textContent = '(' + e.target.value + ')'
+						this.refreshPalette()
+					}
+					document.getElementById('h').onchange = (e) => {
+						this.startH = e.target.value > 360 ? 360 : e.target.value < 0 ? 0 : e.target.value
+						document.getElementById('vh').textContent = e.target.value + '°'
+						this.refreshPalette()
+					}
+					document.getElementById('s').onchange = (e) => {
+						this.startS = e.target.value > 100 ? 100 : e.target.value < 0 ? 0 : e.target.value
+						document.getElementById('vs').textContent = e.target.value + '%'
+						this.refreshPalette()
+					}
+					document.getElementById('l').onchange = (e) => {
+						this.startL = e.target.value > 100 ? 100 : e.target.value < 0 ? 0 : e.target.value
+						document.getElementById('vl').textContent = e.target.value + '%'
+						this.refreshPalette()
+					}
+					document.getElementById('a').onchange = (e) => {
+						this.startA = e.target.value > 100 ? 1 : e.target.value < 0 ? 0 : e.target.value / 100
+						document.getElementById('va').textContent = e.target.value + '%'
+						this.refreshPalette()
+					}
+					// tools
+					document.getElementById('tools').onclick = (e) => {
+						this.toolsactive = !this.toolsactive
+						this.checkToolsOpen()
+					}
+					window.onresize = () => {
+						this.checkToolsOpen()
+						this.refresh_screen_size()
+					}
+					window.onload = () => {
+						// this.addSpirale()
+					}
+				}
+			}
+			new Colors()
+		</script>
+	</body>
+
+</html>
