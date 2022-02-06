@@ -1,0 +1,136 @@
+#form {
+	position: fixed;
+	right: 0;
+	top: 50px;
+	background-color: black;
+	border-bottom-left-radius: 1rem;
+	transition: all 0.1s ease;
+	width: max-content;
+}
+
+#form.active {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#form:not(.active) {
+	display: initial;
+	right: -500px;
+	top: -500px;
+	transition: all 0.3s ease;
+}
+
+#form #tools {
+	position: fixed;
+	right: 0;
+	top: 0;
+	background-color: white;
+	color: black;
+	width: 2rem;
+	height: 2rem;
+	line-height: 2rem;
+	border-bottom-left-radius: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	border-radius: 1rem;
+}
+
+#form #tools:after {
+	position: absolute;
+	content: "🥪";
+}
+
+#form #tools:hover {
+	transform: scale(1.6);
+}
+
+#form > div {
+	color: white;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#form.active #tools:after {
+	position: absolute;
+	content: "🍔";
+}
+
+/** FF*/
+input[type="range"] {
+	border-radius: 0.5rem;
+	background-color: #464646;
+	border: 1px solid rgb(160, 160, 160);
+	overflow: hidden;
+}
+
+input[type="range"]::-moz-range-progress {
+	height: 100%;
+	background-color: #ffffff;
+	border-top-left-radius: 0.5rem;
+	border-bottom-left-radius: 0.5rem;
+}
+
+input[type="range"]::-moz-range-track {
+	background-color: #575757;
+}
+
+#bgr[type="range"]::-moz-range-progress,
+#bgr[type="range"]::-moz-range-track {
+	background-color: #ff0000;
+}
+
+#bgg[type="range"]::-moz-range-progress,
+#bgg[type="range"]::-moz-range-track {
+	background-color: #00ff00;
+}
+
+#bgb[type="range"]::-moz-range-progress,
+#bgb[type="range"]::-moz-range-track {
+	background-color: #0000ff;
+}
+
+#bga[type="range"] {
+	/* background-color: #000000; */
+}
+
+#bga[type="range"]::-moz-range-progress {
+	background-color: #ffffff;
+}
+
+#bga[type="range"]::-moz-range-track {
+	background-color: #ffffff;
+}
+
+/* IE*/
+/* input[type="range"]::-ms-fill-lower {
+				background-color: #014605;
+			}
+
+			input[type="range"]::-ms-fill-upper {
+				background-color: #0004e0;
+			} */
+
+/*Chrome*/
+/* input[type='range'] {
+				overflow: hidden;
+				background-color: black;
+				color: white;
+			}
+
+			input[type='range']::-webkit-slider-runnable-track {
+				color: #ff0000;
+				background-color: none;
+				margin-top: -1px;
+			}
+
+			input[type='range']::-webkit-slider-thumb {
+				cursor: ew-resize;
+				background: #51ff00;
+				box-shadow: none;
+			} */
