@@ -7,6 +7,14 @@
 	transition: all 0.1s ease;
 	width: max-content;
 }
+#form .input,
+#form .range {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: rgb(209, 20, 20);
+}
 
 #form.active {
 	display: flex;
@@ -60,7 +68,11 @@
 	position: absolute;
 	content: "🍔";
 }
-
+.title {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
 /** FF*/
 input[type="range"] {
 	border-radius: 0.5rem;

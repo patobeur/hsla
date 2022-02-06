@@ -19,7 +19,8 @@ class Colors {
 		// tools menu
 		this.toolsactive = true
 		// append or prepend color in palette or spirale
-		this.reverseOrder = true
+		this.reverseOrderPaletteColors = true
+		this.reverseOrderSpiraleColors = true
 		//--
 		this.colorSizeW = 50
 		this.colorSizeH = 50
@@ -49,14 +50,14 @@ class Colors {
 	setColorRangeSize() {
 		this.portionsize = ((this.maxHue) / this.nbcolors)
 	}
-	addColorToPalette(datas, target) {
+	addColorToPalette(datas, target, order) {
 		let div = document.createElement('div')
 		let string = 'hsla(' + datas.h + ', ' + datas.s + '%, ' + datas.l + '%, ' + datas.a + ')'
 		div.style.backgroundColor = string
 		div.textContent = datas.index// + '-' + string
 		div.style.width = datas.width + 'px'
 		div.style.height = datas.height + 'px'
-		this.reverseOrder
+		order
 			? target.prepend(div)
 			: target.appendChild(div)
 	}
@@ -66,7 +67,7 @@ class Colors {
 	degToRad(deg) {
 		return (deg / 180) * Math.PI;
 	}
-	addColorToSpirale(datas, target) {
+	addColorToSpirale(datas, target, order) {
 		let div = document.createElement('div')
 		let string = 'hsla(' + datas.h + ', ' + datas.s + '%, ' + datas.l + '%, ' + datas.a + ')'
 		div.style.backgroundColor = string
@@ -78,7 +79,7 @@ class Colors {
 		if (datas.id) { div.id = datas.id }
 		if (datas.h >= 0) { div.textContent = parseInt(datas.h) + '°' }
 		// if (datas.index >= 0) { div.textContent = datas.index }
-		this.reverseOrder
+		order
 			? target.prepend(div)
 			: target.appendChild(div)
 	}
@@ -112,13 +113,13 @@ class Colors {
 				l: this.startL,
 				a: this.startA,
 			}
-			this.addColorToSpirale(dataColor, document.getElementById('spirale'))
-			this.addColorToPalette(dataColor, document.getElementById('palette'))
+			this.addColorToSpirale(dataColor, document.getElementById('spirale'), this.reverseOrderSpiraleColors)
+			this.addColorToPalette(dataColor, document.getElementById('palette'), this.reverseOrderPaletteColors)
 		}
 	}
 	getNewHue(index) {
 		let h = (((this.startH + (index * this.portionsize)) * this.arrondis) / this.arrondis)
-		// if (h > 360) { h = h - 360 }
+		if (h > 360) { h = h - 360 }
 		return h
 	}
 	refreshPaletteAndSpirale() {
@@ -139,7 +140,7 @@ class Colors {
 		let palette = document.createElement('div')
 		palette.id = 'palette'
 		palette.style.backgroundColor = 'rgba(' + this.bgR + ',' + this.bgG + ',' + this.bgB + ',' + this.bgA + ')'
-		// this.reverseOrder ? document.body.prepend(palette)
+		// this.reverseOrderPaletteColors ? document.body.prepend(palette)
 		// 	: 
 		document.body.prepend(palette)
 
