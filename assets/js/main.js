@@ -84,7 +84,6 @@ class Colors {
 	}
 	getNextPos(x = 0, y = 0, dist = 100, hue = 0) {
 		let rad = this.degToRad(hue)
-		console.log('rad:', rad)
 		return {
 			x: (dist * Math.cos(rad)) + (dist * Math.sin(rad)),
 			y: (dist * Math.sin(rad)) - (dist * Math.cos(rad))
@@ -92,7 +91,6 @@ class Colors {
 
 	}
 	setAllColorDiv() {
-		console.log('-setAllColorDiv-')
 		let x = 0
 		let y = 0
 		let hue = 0
@@ -120,7 +118,6 @@ class Colors {
 	}
 	getNewHue(index) {
 		let h = (((this.startH + (index * this.portionsize)) * this.arrondis) / this.arrondis)
-		console.log('h', h)
 		// if (h > 360) { h = h - 360 }
 		return h
 	}
