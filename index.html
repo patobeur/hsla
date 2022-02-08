@@ -13,15 +13,26 @@
 
 	<body>
 		<div id="form">
-			<div class="bloc">
-				<div class="bg">How many colors</div>
+			<input type="checkbox" id="colors_nav_check">
+			<label for="colors_nav_check" class="colors-nav-toggle-label">
+				<span>How many colors</span>
+			</label>
+			<div class="bloc bloc-colors">
 				<div class="input">
 					<label for="nbcolors">Nb Colors:</label>
 					<input type="number" min="0" name="nbcolors" id="nbcolors" value=3>
 					<!-- <label for="limited"> limited : </label><input type="checkbox" name="limited" id="limited" checked> -->
 				</div>
 			</div>
-			<div class="bloc">
+
+
+
+
+			<input type="checkbox" id="starter_nav_check">
+			<label for="starter_nav_check" class="starter-nav-toggle-label">
+				<span>Base Color</span>
+			</label>
+			<div class="bloc bloc-starter">
 				<div class="range">
 					<div class="title">
 						<label for="h">Starting hue color</label>
@@ -53,8 +64,14 @@
 					<input type="range" id="a" name="a" min="0" max="100" value="100" step="10">
 				</div>
 			</div>
-			<div class="bloc">
-				<div class="bg">Background</div>
+
+
+
+			<input type="checkbox" id="bg_nav_check">
+			<label for="bg_nav_check" class="bg-nav-toggle-label">
+				<span>Background</span>
+			</label>
+			<div class="bloc bloc-bg">
 				<div class="bg-item range">
 					<div class="title">
 						<label for="bgr">Bg Red : </label>
@@ -84,6 +101,11 @@
 					<input type="range" id="bga" name="bga" min="0" max="100" value="100" step="1">
 				</div>
 			</div>
+
+
+
+
+
 			<div id="tools"></div>
 		</div>
 		<div class="github">
