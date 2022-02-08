@@ -208,17 +208,17 @@ class Colors {
 		}
 		document.getElementById('s').onchange = (e) => {
 			this.startS = e.target.value > 100 ? 100 : e.target.value < 0 ? 0 : e.target.value
-			document.getElementById('vs').textContent = e.target.value + '%'
+			document.getElementById('vs').textContent = '(' + e.target.value + '%)'
 			this.refreshPaletteAndSpirale()
 		}
 		document.getElementById('l').onchange = (e) => {
 			this.startL = e.target.value > 100 ? 100 : e.target.value < 0 ? 0 : e.target.value
-			document.getElementById('vl').textContent = e.target.value + '%'
+			document.getElementById('vl').textContent = '(' + e.target.value + '%)'
 			this.refreshPaletteAndSpirale()
 		}
 		document.getElementById('a').onchange = (e) => {
 			this.startA = e.target.value > 100 ? 1 : e.target.value < 0 ? 0 : e.target.value / 100
-			document.getElementById('va').textContent = e.target.value + '%'
+			document.getElementById('va').textContent = '(' + e.target.value + '%)'
 			this.refreshPaletteAndSpirale()
 		}
 		// tools
